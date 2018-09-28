@@ -1,0 +1,11 @@
+
+# Generated
+*.o
+*.elf
+
+# Eclipse
+.project
+.cproject
+.settings
+.metadata
+
