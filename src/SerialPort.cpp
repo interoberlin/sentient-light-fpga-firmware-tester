@@ -64,12 +64,18 @@ void SerialPort::close()
 
 void SerialPort::write(char* buf, uint8_t buflen)
 {
-    ::write(fd, buf, buflen);
+    for (uint8_t i=0; i<buflen; i++)
+    {
+        ::write(fd, buf+i, 1);
+        tcflush(fd, TCIOFLUSH);
+        usleep(50);
+    }
 }
 
 
 void SerialPort::setRTS(bool state)
 {
+    usleep(30);
     int RTS_flag = TIOCM_RTS;
     if (state == true)
         ioctl(fd, TIOCMBIS, &RTS_flag);
