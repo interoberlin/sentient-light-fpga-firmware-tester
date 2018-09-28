@@ -27,9 +27,9 @@ public:
         char s[6];
         s[0] = 1;
         s[1] = index >> 8;
-        s[2] = index && 0xff;
-        s[3] = (value && 0xff0000) >> 16;
-        s[4] = (value && 0xff00) >> 8;
+        s[2] = index & 0xff;
+        s[3] = (value & 0xff0000) >> 16;
+        s[4] = (value & 0xff00) >> 8;
         s[5] = value & 0xff;
 
         port->setRTS(true);
