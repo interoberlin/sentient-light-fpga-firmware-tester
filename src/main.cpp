@@ -2,17 +2,12 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "SerialPort.hpp"
+#include "LedStick.hpp"
 
 
 int main(void)
 {
-    SerialPort uart("/dev/ttyUSB1");
-    uart.open();
+    LedStick dongle0("/dev/ttyUSB1");
 
-    uart.setRTS(true);
-    uart.write("\1\0\2\xff\xff\xff", 6);
-    uart.setRTS(false);
-
-    uart.close();
+    dongle0.setLED(0, 0xffffff);
 }
