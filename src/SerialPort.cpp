@@ -18,38 +18,38 @@ void SerialPort::open()
 
     if(fd == -1)
     {
-        printf("Failed to open port");
+        printf("Failed to open serial port\n");
         return;
     }
 
 
-    struct termios SerialPortSettings;
+    struct termios settings;
 
     /* Get the current attributes of the Serial port */
-    tcgetattr(fd, &SerialPortSettings);
+    tcgetattr(fd, &settings);
 
-    cfsetispeed(&SerialPortSettings,B115200);
-    cfsetospeed(&SerialPortSettings,B115200);
+    cfsetispeed(&settings, B115200);
+    cfsetospeed(&settings, B115200);
 
     // 8 data bits
-    SerialPortSettings.c_cflag &= ~CSIZE;
-    SerialPortSettings.c_cflag |=  CS8;
+    settings.c_cflag &= ~CSIZE;
+    settings.c_cflag |=  CS8;
     // No parity
-    SerialPortSettings.c_cflag &= ~PARENB;
+    settings.c_cflag &= ~PARENB;
     // 1 stop bit
-    SerialPortSettings.c_cflag &= ~CSTOPB;
+    settings.c_cflag &= ~CSTOPB;
     // No hardware flow control
-    SerialPortSettings.c_cflag &= ~CRTSCTS;
+    settings.c_cflag &= ~CRTSCTS;
     // Enable receiver, ignore modem control lines
-    SerialPortSettings.c_cflag |= CREAD | CLOCAL;
+    settings.c_cflag |= CREAD | CLOCAL;
     // Disable XON/XOFF flow control both i/p and o/p
-    SerialPortSettings.c_iflag &= ~(IXON | IXOFF | IXANY);
+    settings.c_iflag &= ~(IXON | IXOFF | IXANY);
     // Non canonical mode
 //    SerialPortSettings.c_iflag &= ~(ICANON | ECHO | ECHOE | ISIG);
     // NO output processing
-    SerialPortSettings.c_oflag &= ~OPOST;
+//    settings.c_oflag &= ~OPOST;
 
-    if ((tcsetattr(fd, TCSANOW, &SerialPortSettings)) != 0)
+    if ((tcsetattr(fd, TCSANOW, &settings)) != 0)
         printf("ERROR while setting attributes\n");
     else
         printf("Attributes set successfully.\n");
