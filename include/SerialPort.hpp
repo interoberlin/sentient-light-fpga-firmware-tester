@@ -18,6 +18,7 @@ public:
     SerialPort(char* arg) { path = arg; }
 
     void open();
+    bool isOpen() { return (fd != -1); }
     void close();
 
     void write(char*, uint8_t);

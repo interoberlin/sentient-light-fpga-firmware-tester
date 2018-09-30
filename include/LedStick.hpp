@@ -22,6 +22,11 @@ public:
         port->close();
     }
 
+    bool isConnected()
+    {
+        return port->isOpen();
+    }
+
     void setLED(uint16_t index, uint32_t value)
     {
         char s[6];
