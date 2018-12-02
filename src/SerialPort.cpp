@@ -73,12 +73,24 @@ void SerialPort::write(char* buf, uint8_t buflen)
 }
 
 
-void SerialPort::setRTS(bool state)
+void SerialPort::setFlag(int flag, bool state)
 {
     usleep(30);
-    int RTS_flag = TIOCM_RTS;
     if (state == true)
-        ioctl(fd, TIOCMBIS, &RTS_flag);
+        ioctl(fd, TIOCMBIS, &flag);
     else
-        ioctl(fd, TIOCMBIC, &RTS_flag);
+        ioctl(fd, TIOCMBIC, &flag);
 }
+
+
+void SerialPort::setRTS(bool state)
+{
+    setFlag(TIOCM_RTS, state);
+}
+
+
+void SerialPort::setDTR(bool state)
+{
+    setFlag(TIOCM_DTR, state);
+}
+

@@ -22,9 +22,25 @@ public:
     void close();
 
     void write(char*, uint8_t);
+
+    /**
+     * Set the state of a serial port flag
+     */
+    void setFlag(int, bool);
+
+    /**
+     * Set the state of the serial port's RTS pin
+     */
     void setRTS(bool);
     void setRTS() { setRTS(true); }
     void clearRTS() { setRTS(false); }
+
+    /**
+     * Set the state of the serial port's DTR pin
+     */
+    void setDTR(bool);
+    void setDTR() { setDTR(true); }
+    void clearDTR() { setDTR(false); }
 };
 
 #endif
